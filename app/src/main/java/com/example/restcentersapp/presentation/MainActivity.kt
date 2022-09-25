@@ -3,19 +3,21 @@ package com.example.restcentersapp.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -50,48 +52,12 @@ class MainActivity : ComponentActivity() {
                                BottomNavItem(
                                    name = navItem.title,
                                    route = navItem.route,
-                                   icon = Icon(painter = painterResource(id = navItem.icon), contentDescription = navItem.title)
+                                   icon = navItem.icon
                                )
                             },
                             navController = navController,
-                            onItemClick = navController.navigate())
-
-//                        BottomNavigationBar(
-//                            items = listOf(
-//                                BottomNavItem(
-//                                    name = "Home",
-//                                    route = "home",
-//                                    icon = Icons.Default.Home
-//                                ),
-//                                BottomNavItem(
-//                                    name = "map",
-//                                    route = "map",
-////                                    icon = ImageVector.vectorResource(R.drawable.map)
-//                                    icon = Icon(painter = painterResource(id = R.drawable.map), contentDescription = "")
-//                                ),
-//                                BottomNavItem(
-//                                    name = "booking",
-//                                    route = "booking",
-////                                    icon = ImageVector.vectorResource(R.drawable.booked)
-//                                    icon = Icons.Default.Add
-//                                ),
-//                                BottomNavItem(
-//                                    name = "chats",
-//                                    route = "chats",
-////                                    icon = ImageVector.vectorResource(R.drawable.chats)
-//                                    icon = Icons.Default.List
-//                                ),
-//                                BottomNavItem(
-//                                    name = "profile",
-//                                    route = "profile",
-//                                    icon = Icons.Default.Person
-//                                )
-//                            ),
-//                            navController = navController,
-//                            onItemClick ={
-//                                navController.navigate(it.route)
-//                            }
-//                        )
+                            onItemClick = { navController.navigate(it.route) }
+                        )
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
@@ -154,10 +120,13 @@ fun BottomNavigationBar(
                 unselectedContentColor = Color.Gray,
                 icon = {
                     Column(horizontalAlignment = CenterHorizontally) {
+//                        Icon(
+//                            imageVector = vectorR,
+//                            contentDescription = item.name
+//                        )
                         Icon(
-                            imageVector = item.icon,
-                            contentDescription = item.name
-                        )
+                            painter = painterResource(id = item.icon),
+                            contentDescription = item.name)
                         Text(
                             text = item.name,
                             textAlign = TextAlign.Center,
@@ -170,12 +139,6 @@ fun BottomNavigationBar(
     }
 }
 
-//@Composable
-//fun HomeScreen(
-//    navController: NavController
-//) {
-//    MainScreen(navController = navController)
-//}
 
 @Composable
 fun MapScreen() {
