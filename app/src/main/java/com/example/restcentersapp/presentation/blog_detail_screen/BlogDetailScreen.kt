@@ -1,7 +1,6 @@
 package com.example.restcentersapp.presentation.blog_detail_screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -19,7 +18,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.restcentersapp.R
-import com.example.restcentersapp.presentation.main_screen.components.ImageCard
 import com.example.restcentersapp.util.loadPicture
 import com.example.restcentersapp.util.robotoFamily
 

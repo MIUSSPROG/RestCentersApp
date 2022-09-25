@@ -15,17 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import com.example.restcentersapp.presentation.blog_detail_screen.BlogDetailScreen
+import com.example.restcentersapp.R
 import com.example.restcentersapp.presentation.main_screen.MainScreen
 import com.example.restcentersapp.presentation.main_screen.homeNavGraph
-import com.example.restcentersapp.ui.BottomNavItem
 import com.example.restcentersapp.ui.theme.RestCentersAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,45 +35,63 @@ class MainActivity : ComponentActivity() {
         setContent {
             RestCentersAppTheme {
                 val navController = rememberNavController()
+                val navItems = listOf(
+                    NavigationItem.Home,
+                    NavigationItem.Map,
+                    NavigationItem.Booking,
+                    NavigationItem.Chats,
+                    NavigationItem.Profile,
+                )
 
                 Scaffold(
                     bottomBar = {
                         BottomNavigationBar(
-                            items = listOf(
-                                BottomNavItem(
-                                    name = "Home",
-                                    route = "home",
-                                    icon = Icons.Default.Home
-                                ),
-                                BottomNavItem(
-                                    name = "map",
-                                    route = "map",
-//                                    icon = ImageVector.vectorResource(R.drawable.map)
-                                    icon = Icons.Default.Create
-                                ),
-                                BottomNavItem(
-                                    name = "booking",
-                                    route = "booking",
-//                                    icon = ImageVector.vectorResource(R.drawable.booked)
-                                    icon = Icons.Default.Add
-                                ),
-                                BottomNavItem(
-                                    name = "chats",
-                                    route = "chats",
-//                                    icon = ImageVector.vectorResource(R.drawable.chats)
-                                    icon = Icons.Default.List
-                                ),
-                                BottomNavItem(
-                                    name = "profile",
-                                    route = "profile",
-                                    icon = Icons.Default.Person
-                                )
-                            ),
+                            items = navItems.map { navItem ->
+                               BottomNavItem(
+                                   name = navItem.title,
+                                   route = navItem.route,
+                                   icon = Icon(painter = painterResource(id = navItem.icon), contentDescription = navItem.title)
+                               )
+                            },
                             navController = navController,
-                            onItemClick ={
-                                navController.navigate(it.route)
-                            }
-                        )
+                            onItemClick = navController.navigate())
+
+//                        BottomNavigationBar(
+//                            items = listOf(
+//                                BottomNavItem(
+//                                    name = "Home",
+//                                    route = "home",
+//                                    icon = Icons.Default.Home
+//                                ),
+//                                BottomNavItem(
+//                                    name = "map",
+//                                    route = "map",
+////                                    icon = ImageVector.vectorResource(R.drawable.map)
+//                                    icon = Icon(painter = painterResource(id = R.drawable.map), contentDescription = "")
+//                                ),
+//                                BottomNavItem(
+//                                    name = "booking",
+//                                    route = "booking",
+////                                    icon = ImageVector.vectorResource(R.drawable.booked)
+//                                    icon = Icons.Default.Add
+//                                ),
+//                                BottomNavItem(
+//                                    name = "chats",
+//                                    route = "chats",
+////                                    icon = ImageVector.vectorResource(R.drawable.chats)
+//                                    icon = Icons.Default.List
+//                                ),
+//                                BottomNavItem(
+//                                    name = "profile",
+//                                    route = "profile",
+//                                    icon = Icons.Default.Person
+//                                )
+//                            ),
+//                            navController = navController,
+//                            onItemClick ={
+//                                navController.navigate(it.route)
+//                            }
+//                        )
                     }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
@@ -94,10 +111,11 @@ const val PROFILE_GRAPH_ROUTE = "profile"
 
 @Composable
 fun Navigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = HOME_GRAPH_ROUTE){
+    NavHost(navController = navController, route= Graph.ROOT, startDestination = HOME_GRAPH_ROUTE){
 
-        homeNavGraph(navController = navController)
-
+        composable(HOME_GRAPH_ROUTE){
+            MainScreen(navController = navController)
+        }
         composable(MAP_GRAPH_ROUTE){
             MapScreen()
         }
@@ -110,6 +128,8 @@ fun Navigation(navController: NavHostController) {
         composable(PROFILE_GRAPH_ROUTE){
             ProfileScreen()
         }
+
+        homeNavGraph(navController = navController)
     }
 }
 
@@ -150,12 +170,12 @@ fun BottomNavigationBar(
     }
 }
 
-@Composable
-fun HomeScreen(
-    navController: NavController
-) {
-    MainScreen(navController = navController)
-}
+//@Composable
+//fun HomeScreen(
+//    navController: NavController
+//) {
+//    MainScreen(navController = navController)
+//}
 
 @Composable
 fun MapScreen() {

@@ -1,4 +1,4 @@
-package com.example.restcentersapp.ui
+package com.example.restcentersapp.presentation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

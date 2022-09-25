@@ -13,6 +13,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.restcentersapp.presentation.Graph
 import com.example.restcentersapp.presentation.Screen
 import com.example.restcentersapp.presentation.main_screen.components.BlogListItem
 import com.example.restcentersapp.presentation.main_screen.components.FoodListItem
