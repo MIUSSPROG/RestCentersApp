@@ -1,24 +1,25 @@
 package com.example.restcentersapp.presentation.main_screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.restcentersapp.presentation.Graph
 import com.example.restcentersapp.presentation.Screen
 import com.example.restcentersapp.presentation.main_screen.components.BlogListItem
 import com.example.restcentersapp.presentation.main_screen.components.FoodListItem
-import com.example.restcentersapp.util.Constants.PARAM_BLOG_ID
 import com.example.restcentersapp.util.robotoFamily
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -29,8 +30,9 @@ fun MainScreen(
 ) {
     val foodState = viewModel.foodState.value
     val blogsState = viewModel.blogsState.value
+    val scrollState = rememberScrollState()
 
-    Column(modifier = Modifier.padding(top = 20.dp, start = 10.dp, end = 10.dp)){
+    Column(modifier = Modifier.padding(top = 20.dp, start = 10.dp, end = 10.dp).verticalScroll(scrollState)){
         Text(
             "Питание",
             modifier = Modifier.padding(start = 5.dp),
@@ -66,6 +68,19 @@ fun MainScreen(
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent, contentColor = Color.Blue),
+            border = BorderStroke(1.dp,Color.Blue),
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = "Показать все (16)",
+                modifier = Modifier.padding(10.dp)
+            )
+        }
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             "Блог",
@@ -74,7 +89,6 @@ fun MainScreen(
             fontWeight = FontWeight.Medium,
             fontFamily = robotoFamily
         )
-
         LazyRow{
             items(blogsState.blogs){ blog ->
                 BlogListItem(
@@ -86,17 +100,6 @@ fun MainScreen(
                 )
             }
         }
-//        Button(
-//            onClick = { /*TODO*/ },
-//            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent, contentColor = Color.Blue),
-//            border = BorderStroke(1.dp,Color.Blue),
-//            modifier = Modifier
-//                .fillMaxWidth()
-//        ) {
-//            Text(
-//                text = "Показать все (16)",
-//                modifier = Modifier.padding(10.dp)
-//            )
-//        }
+        Spacer(modifier = Modifier.height(480.dp))
     }
 }
