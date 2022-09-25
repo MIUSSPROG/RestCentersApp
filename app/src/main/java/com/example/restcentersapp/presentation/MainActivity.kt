@@ -24,6 +24,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import com.example.restcentersapp.presentation.blog_detail_screen.BlogDetailScreen
 import com.example.restcentersapp.presentation.main_screen.MainScreen
+import com.example.restcentersapp.presentation.main_screen.homeNavGraph
 import com.example.restcentersapp.ui.BottomNavItem
 import com.example.restcentersapp.ui.theme.RestCentersAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -85,23 +86,28 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+const val HOME_GRAPH_ROUTE = "home"
+const val MAP_GRAPH_ROUTE = "map"
+const val BOOKING_GRAPH_ROUTE = "booking"
+const val CHATS_GRAPH_ROUTE = "chats"
+const val PROFILE_GRAPH_ROUTE = "profile"
 
 @Composable
 fun Navigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "home"){
-        composable("home"){
-            HomeScreen()
-        }
-        composable("map"){
+    NavHost(navController = navController, startDestination = HOME_GRAPH_ROUTE){
+
+        homeNavGraph(navController = navController)
+
+        composable(MAP_GRAPH_ROUTE){
             MapScreen()
         }
-        composable("booking"){
+        composable(BOOKING_GRAPH_ROUTE){
             BookingScreen()
         }
-        composable("chats"){
+        composable(CHATS_GRAPH_ROUTE){
             ChatsScreen()
         }
-        composable("profile"){
+        composable(PROFILE_GRAPH_ROUTE){
             ProfileScreen()
         }
     }
@@ -145,29 +151,9 @@ fun BottomNavigationBar(
 }
 
 @Composable
-fun HomeScreen() {
-    val navController = rememberNavController()
-
-    NavHost(navController = navController, startDestination = Screen.BlogListScreen.route){
-        composable(
-            route = Screen.BlogListScreen.route
-        ){
-            MainScreen(navController = navController)
-        }
-
-        composable(
-            route = Screen.BlogDetailScreen.route + "/{title}",
-            arguments = listOf(
-                navArgument("title"){
-                    type = NavType.StringType
-                    defaultValue = "Нет данных"
-                    nullable = true
-                }
-            )
-        ){
-            BlogDetailScreen(title = it.arguments?.getString("title"))
-        }
-    }
+fun HomeScreen(
+    navController: NavController
+) {
     MainScreen(navController = navController)
 }
 

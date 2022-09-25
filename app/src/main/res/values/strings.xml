@@ -3,4 +3,5 @@
     <string name="httpExceptionError">Ошибка сервера</string>
     <string name="ioException">Нет интернет соединения</string>
     <string name="getDataError">Ошибка получения данных</string>
+    <string name="back">Назад</string>
 </resources>

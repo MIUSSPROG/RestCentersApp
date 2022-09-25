@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.example.restcentersapp.presentation.Screen
 import com.example.restcentersapp.presentation.main_screen.components.BlogListItem
 import com.example.restcentersapp.presentation.main_screen.components.FoodListItem
+import com.example.restcentersapp.util.Constants.PARAM_BLOG_ID
 import com.example.restcentersapp.util.robotoFamily
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -78,13 +79,11 @@ fun MainScreen(
                     blogItem = blog,
                     modifier = Modifier.fillParentMaxWidth(),
                     onItemClick = {
-                        navController.navigate(Screen.BlogDetailScreen.withArgs(blog.title))
+                        navController.navigate(Screen.BlogDetailScreen.withArgs(blog.id.toString()))
                     }
                 )
             }
         }
-
-
 //        Button(
 //            onClick = { /*TODO*/ },
 //            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent, contentColor = Color.Blue),
@@ -98,5 +97,4 @@ fun MainScreen(
 //            )
 //        }
     }
-
 }
